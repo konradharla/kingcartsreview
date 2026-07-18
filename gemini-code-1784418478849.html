@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King Carts Review Generator</title>
+    <style>
+        :root {
+            --bg-color: #f7f9fa;
+            --card-bg: #ffffff;
+            --primary-red: #ff1e1e;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-muted: #666666;
+            --border-color: #e1e4e6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        /* Logo Branding */
+        .brand-header {
+            margin-bottom: 30px;
+        }
+
+        .logo-img {
+            max-width: 220px;
+            height: auto;
+            display: block;
+            margin: 0 auto 15px;
+        }
+
+        h2.section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 25px 0;
+            color: var(--text-dark);
+        }
+
+        /* Review Container */
+        .review-container {
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px 25px;
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #333;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .review-text {
+            font-style: italic;
+        }
+
+        /* App Buttons */
+        .action-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 35px;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .btn-generate {
+            background-color: var(--primary-red);
+            color: white;
+        }
+
+        .btn-generate:hover {
+            background-color: #e01212;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(255, 30, 30, 0.2);
+        }
+
+        .btn-copy {
+            background-color: var(--accent-gold);
+            color: white;
+        }
+
+        .btn-copy:hover {
+            background-color: #c4a02e;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-copy:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Divider Line */
+        .divider {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 30px 0;
+        }
+
+        /* Google Launch Button */
+        .btn-google {
+            display: inline-block;
+            text-decoration: none;
+            background-color: transparent;
+            color: #1a73e8;
+            border: 2px solid #1a73e8;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-google:hover {
+            background-color: #1a73e8;
+            color: white;
+            box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
+        }
+
+        /* Toast Alert */
+        .toast {
+            visibility: hidden;
+            min-width: 220px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 12px;
+            position: fixed;
+            z-index: 10;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .toast.show {
+            visibility: visible;
+            animation: fadein 0.4s, fadeout 0.4s 2.6s;
+        }
+
+        @keyframes fadein {
+            from { bottom: 0; opacity: 0; }
+            to { bottom: 30px; opacity: 1; }
+        }
+
+        @keyframes fadeout {
+            from { bottom: 30px; opacity: 1; }
+            to { bottom: 0; opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="brand-header">
+            <!-- Exact PNG image replacement source link -->
+            <img src="logo.png" alt="King Carts Logo" class="logo-img">
+        </div>
+
+        <!-- Replaced old titles with clean requested title -->
+        <h2 class="section-title">Review Generator</h2>
+
+        <div class="review-container">
+            <div class="review-text" id="reviewDisplay">Click "Generate Review" to randomize a realistic local testimonial...</div>
+        </div>
+
+        <div class="action-group">
+            <button class="btn-generate" onclick="generateReview()">Generate Review</button>
+            <button class="btn-copy" id="copyBtn" onclick="copyReview()" disabled>Copy Text</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Targeted Business Deep link with 5-star review target syntax appended to the local view sequence -->
+        <a href="https://www.google.com/search?q=king+carts+sarasota&oq=king+carts+sarasota&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRifBTIHCAYQIRifBdIBCDQ0MTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sv=CAwS5AIKBmxjbF9wdhIzCgNwdnESLENnMHZaeTh4TVc1d2JXdDZjalE0SWhBS0NtdHBibWNnWTJGeWRITVFBaGdEEuIBCgNscWkS2gFDaE5yYVc1bklHTmhjblJ6SUhOaGNtRnpiM1JoU0lpNV9iald0SUNBQ0ZvZEVBQVFBUmdBR0FFaUUydHBibWNnWTJGeWRITWdjMkZ5WVhOdmRHR1NBUkJuYjJ4bVgyTmhjblJmWkdWaGJHVnltZ0ZFUTJrNVJGRlZiRkpSVlU1MldrVk9iMlJJYkdwU2FteDJWREp3YTFWdFNYbGFSbVJPWVhwR1dGVjZRbk5rTURWeldrUkNUMkZ0ZUZsWmVrcGhZVmRHU1ZsNFFVTGdBUUQ2QVFVISM0ZDRCQU9pRVVNZxISCgN0YnMSC2xyZjohM3NJQUU9EhgKAXESE2tpbmcgY2FydHMgc2FyYXNvdGEaEmxvY2FsLXBsYWNlLXZpZXdlchgKIPfno4sH,3,,," 
+           target="_blank" 
+           class="btn-google">
+           Go to Google Review Page
+        </a>
+    </div>
+
+    <div id="toast" class="toast">Copied to clipboard!</div>
+
+    <script>
+        const reviews = [
+            "shoutout to king carts in st pete! got a lifted EZGO from them last week. looks awesome but the backup buzzer didn't work at first. they came out to my house and fixed it free of charge. great service, just a little delay getting back to my email. definitely recommend!",
+            "Honestly the best golf cart spot around here. Had a issue with my custom lithium battery chargers and the team at largo sorted it right up. No questions asked super straightforward.",
+            "me and the wife bought a custom 6 passenger street legal cart from king carts. took a week longer then they promised but man it looks incredible. everyone in our neighborhood keeps asking where we got it done.",
+            "Good prices and nice inventory on the lot. They delivered it right to my driveway in Largo dropped it off right on time. text them on the number if you want a fast reply.",
+            "if your looking for a lifted custom ride go see them. they have so many paint options and configurations to choose from. love my new icon machine thanks king carts team.",
+            "Got a great deal on a pre owned club car. Runs flawless down to the beach and back. Only thing was they forgot the extra set of keys but they mailed it out next day so its all good.",
+            "highly recommend king carts. service department in largo is top notch. fixed my lifted cart alignment after i hit a curb hard. 5 stars all day long"
+        ];
+
+        let currentReviewText = "";
+
+        function generateReview() {
+            const textDisplay = document.getElementById('reviewDisplay');
+            const copyBtn = document.getElementById('copyBtn');
+            
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * reviews.length);
+            } while (reviews[randomIndex] === currentReviewText && reviews.length > 1);
+
+            currentReviewText = reviews[randomIndex];
+            
+            textDisplay.innerText = `"${currentReviewText}"`;
+            copyBtn.disabled = false;
+        }
+
+        function copyReview() {
+            if (!currentReviewText) return;
+            
+            navigator.clipboard.writeText(currentReviewText).then(() => {
+                const toast = document.getElementById("toast");
+                toast.className = "toast show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
