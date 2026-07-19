@@ -40,7 +40,6 @@
             box-sizing: border-box;
         }
 
-        /* Logo Branding */
         .brand-header {
             margin-bottom: 30px;
         }
@@ -61,7 +60,6 @@
             color: var(--text-dark);
         }
 
-        /* Review Container */
         .review-container {
             background-color: #f8f9fa;
             border: 1px solid var(--border-color);
@@ -82,7 +80,6 @@
             font-style: italic;
         }
 
-        /* App Buttons */
         .action-group {
             display: flex;
             gap: 15px;
@@ -132,14 +129,12 @@
             box-shadow: none !important;
         }
 
-        /* Divider Line */
         .divider {
             height: 1px;
             background-color: var(--border-color);
             margin: 30px 0 20px 0;
         }
 
-        /* Google Direct Link Button */
         .btn-google {
             display: inline-block;
             text-decoration: none;
@@ -162,7 +157,6 @@
             box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
         }
 
-        /* Thank You Styling */
         .thanks-msg {
             font-size: 0.9rem;
             font-weight: 700;
@@ -172,7 +166,6 @@
             margin-top: 10px;
         }
 
-        /* Toast Alert */
         .toast {
             visibility: hidden;
             min-width: 220px;
@@ -217,11 +210,11 @@
         <h2 class="section-title">Review Generator</h2>
 
         <div class="review-container">
-            <div class="review-text" id="reviewDisplay">Click "Generate Review" to randomize a realistic local testimonial...</div>
+            <div class="review-text" id="reviewDisplay">Loading massive review database...</div>
         </div>
 
         <div class="action-group">
-            <button class="btn-generate" onclick="generateReview()">Generate Review</button>
+            <button class="btn-generate" id="genBtn" onclick="generateReview()" disabled>Generate Review</button>
             <button class="btn-copy" id="copyBtn" onclick="copyReview()" disabled>Copy Text</button>
         </div>
 
@@ -239,89 +232,39 @@
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
-        // Fragment bank organized into distinct semantic pools
-        const pools = {
-            brandName: ["king carts", "King Carts", "this place", "king carts shop"],
-            ownerName: ["bart", "Bart", "Bart and his team", "bart and the crew"],
-            praiseStaff: [
-                "is super nice and highly knowledgeable.",
-                "knows their stuff and answered all our layout questions.",
-                "was awesome to work with, no pressure at all.",
-                "runs a professional shop. very helpful people."
-            ],
-            cartType: [
-                "a custom lifted 6 seater",
-                "our new Evolution street legal cart",
-                "a preowned club car machine",
-                "a beautiful lithium battery setup"
-            ],
-            amenities: [
-                "with custom matching rims and a bluetooth soundbar",
-                "with premium custom seats and dashboard tracking",
-                "with the upgraded speed controller and underglow lights",
-                "with heavy duty tires perfect for our neighborhood"
-            ],
-            deliveryNotes: [
-                "Delivered it right to my driveway same day clean and ready.",
-                "They handled all the street legal paperwork seamlessly.",
-                "Dropped it off exactly when they said they would.",
-                "Smooth transaction from start to finish."
-            ],
-            serviceProblem: [
-                "had a minor issue with my tire alignment",
-                "needed to upgrade my old cart to a lithium battery setup",
-                "brought my cart in to fix a broken brake cable setup",
-                "came in for routine maintenance on my custom street legal ride"
-            ],
-            serviceFix: [
-                "they got me into the service bay next day and fixed it up perfectly.",
-                "the technicians were highly knowledgeable and sorted it out fast.",
-                "Bart gave me a super fair price on the parts and labor.",
-                "honest people who didn't try to upsell me on extra parts."
-            ]
-        };
-
+        let reviewBank = [];
         let currentReviewText = "";
 
-        function getRandomElement(arr) {
-            return arr[Math.floor(Math.random() * arr.length)];
-        }
+        // Automatically fetch the external txt sheet from your repository when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('reviews.txt')
+                .then(response => {
+                    if (!response.ok) throw new Error('Could not find reviews.txt file');
+                    return response.text();
+                })
+                .then(data => {
+                    // Split file by newlines and filter out empty lines
+                    reviewBank = data.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+                    
+                    document.getElementById('reviewDisplay').innerText = 'Click "Generate Review" to pull from thousands of unique options...';
+                    document.getElementById('genBtn').disabled = false;
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('reviewDisplay').innerText = 'Error loading reviews. Make sure reviews.txt exists in your repository.';
+                });
+        });
 
         function generateReview() {
+            if (reviewBank.length === 0) return;
+
             const textDisplay = document.getElementById('reviewDisplay');
             const copyBtn = document.getElementById('copyBtn');
             
-            // Generate a random index between 1 and 3 to choose a unique layout formula
-            const formulaSelector = Math.floor(Math.random() * 3) + 1;
-            let generatedText = "";
-
-            if (formulaSelector === 1) {
-                // Style 1: Quick phone blast (Short & Punchy)
-                const options = [
-                    `five stars for ${getRandomElement(pools.ownerName)} at ${getRandomElement(pools.brandName)}. the staff ${getRandomElement(pools.praiseStaff)} love the new cart guys thanks!!`,
-                    `highly recommend going to see ${getRandomElement(pools.ownerName)}. best prices around town and their staff is extremely knowledgable. 10/10 service.`,
-                    `shoutout to ${getRandomElement(pools.brandName)}!! picked up a custom ride last week and it runs amazing. ${getRandomElement(pools.ownerName)} was super straightforward and great to deal with.`
-                ];
-                generatedText = getRandomElement(options);
-
-            } else if (formulaSelector === 2) {
-                // Style 2: The Longer Story Narrative (Detailed Purchase)
-                const options = [
-                    `me and the wife bought ${getRandomElement(pools.cartType)} ${getRandomElement(pools.amenities)}. ${getRandomElement(pools.ownerName)} made the whole process super easy and spent a lot of time showing us how everything worked. ${getRandomElement(pools.deliveryNotes)} definitely check them out if your looking.`,
-                    `Honestly the best experience purchasing a golf cart. We visited a few dealerships but ${getRandomElement(pools.brandName)} had the best inventory by far. ${getRandomElement(pools.ownerName)} and the crew were highly knowledgable about the lithium configurations. ${getRandomElement(pools.deliveryNotes)}`
-                ];
-                generatedText = getRandomElement(options);
-
-            } else {
-                // Style 3: Service, Upgrades, & Repair Shop Focus
-                const options = [
-                    `Cannot recommend the service department at ${getRandomElement(pools.brandName)} enough. I ${getRandomElement(pools.serviceProblem)} and ${getRandomElement(pools.serviceFix)} top notch service all day long.`,
-                    `If you need your cart fixed or customized go see ${getRandomElement(pools.ownerName)}. I ${getRandomElement(pools.serviceProblem)} and ${getRandomElement(pools.serviceFix)} extremely happy customer.`
-                ];
-                generatedText = getRandomElement(options);
-            }
-
-            currentReviewText = generatedText;
+            // Instantly extract a truly random, non-pattern item
+            const randomIndex = Math.floor(Math.random() * reviewBank.length);
+            currentReviewText = reviewBank[randomIndex];
+            
             textDisplay.innerText = `"${currentReviewText}"`;
             copyBtn.disabled = false;
         }
