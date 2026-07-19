@@ -153,6 +153,7 @@
             letter-spacing: 0.5px;
             transition: all 0.2s ease;
             margin-bottom: 25px;
+            cursor: pointer;
         }
 
         .btn-google:hover {
@@ -226,9 +227,8 @@
 
         <div class="divider"></div>
 
-        <a href="https://www.google.com/search?q=king+carts+sarasota&oq=king+carts+sarasota&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORigATIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRifBTIHCAYQIRifBdIBCDQ0MTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#sv=CAwS5AIKBmxjbF9wdhIzCgNwdnESLENnMHZaeTh4TVc1d2JXdDZjalE0SWhBS0NtdHBibWNnWTJGeWRITVFBaGdEEuIBCgNscWkS2gFDaE5yYVc1bklHTmhjblJ6SUhOaGNtRnpiM1JoU0lpNV9iald0SUNBQ0ZvZEVBQVFBUmdBR0FFaUUydHBibWNnWTJGeWRITWdjMkZ5WVhOdmRHR1NBUkJuYjJ4bVgyTmhjblJmWkdWaGJHVnltZ0ZFUTJrNVJGRlZiRkpSVlU1MldrVk9iMlJJYkdwU2FteDJWREp3YTFWdFNYbGFSbVJPWVhwR1dGVjZRbk5rTURWeldrUkNUMkZ0ZUZsWmVrcGhZVmRHU1ZsNFFVTGdBUUQ2QVFVSW9BRVFNZxISCgN0YnMSC2xyZjohM3NJQUU9EhgKAXESE2tpbmcgY2FydHMgc2FyYXNvdGEaEmxvY2FsLXBsYWNlLXZpZXdlchgKIPfno4sH,3,,," 
-           target="_blank" 
-           class="btn-google">
+        <!-- Smartphone Deep Link Action Point -->
+        <a href="#" onclick="openMobileReview(event)" class="btn-google">
            Go to Google Review Page
         </a>
 
@@ -238,7 +238,6 @@
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
-        // Grammar rules and syntax components to build synthetic custom reviews
         const structure = {
             openings: [
                 "shoutout to bart and the team at king carts!!",
@@ -299,16 +298,13 @@
             const textDisplay = document.getElementById('reviewDisplay');
             const copyBtn = document.getElementById('copyBtn');
             
-            // Randomly assemble a completely unique sentence chain locally
             const p1 = getRandomElement(structure.openings);
             const p2 = getRandomElement(structure.staffMentions);
             const p3 = getRandomElement(structure.cartDetails);
             const p4 = getRandomElement(structure.deliveryOrHiccups);
             const p5 = getRandomElement(structure.closings);
 
-            // Mix up capitalization style randomly to match organic review variances
-            const generated = `${p1} ${p2} ${p3} ${p4} ${p5}`;
-            currentReviewText = generated;
+            currentReviewText = `${p1} ${p2} ${p3} ${p4} ${p5}`;
             
             textDisplay.innerText = `"${currentReviewText}"`;
             copyBtn.disabled = false;
@@ -324,6 +320,37 @@
             }).catch(err => {
                 console.error('Failed to copy: ', err);
             });
+        }
+
+        function openMobileReview(event) {
+            event.preventDefault();
+            
+            // Exact Place ID for King Carts Sarasota
+            const placeId = "ChIJNdynIGhcszIRmHszSt0SIhA"; 
+            
+            // Native application layout query protocols
+            const iosAppUrl = `comgooglemaps://?q=King+Carts+Sarasota&pid=${placeId}&action=write-review`;
+            const androidAppUrl = `intent://plus.google.com/112675685848227656608/review?pid=${placeId}#Intent;scheme=https;package=com.google.android.apps.maps;end`;
+            const fallbackWebUrl = `https://search.google.com/local/writereview?placeid=${placeId}`;
+
+            const start = Date.now();
+            
+            // Route user directly into native system apps
+            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                window.location.href = iosAppUrl;
+            } else if (/Android/i.test(navigator.userAgent)) {
+                window.location.href = androidAppUrl;
+            } else {
+                window.open(fallbackWebUrl, '_blank');
+                return;
+            }
+
+            // Fallback safety catch
+            setTimeout(() => {
+                if (Date.now() - start < 2000) {
+                    window.location.href = fallbackWebUrl;
+                }
+            }, 1500);
         }
     </script>
 </body>
