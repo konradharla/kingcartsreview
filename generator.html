@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>King Carts Review Generator</title>
-    <!-- The parameter below forces browsers to refresh their cache styles immediately -->
-    <link rel="stylesheet" href="?v=1.0.1">
     <style>
         :root {
             --bg-color: #f7f9fa;
@@ -13,12 +11,11 @@
             --primary-red: #ff1e1e;
             --accent-gold: #d4af37;
             --text-dark: #1a1a1a;
-            --text-muted: #666666;
             --border-color: #e1e4e6;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-dark);
             margin: 0;
@@ -59,7 +56,6 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin: 0 0 25px 0;
-            color: var(--text-dark);
         }
 
         .review-container {
@@ -99,7 +95,6 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .btn-generate {
@@ -109,8 +104,6 @@
 
         .btn-generate:hover {
             background-color: #e01212;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 12px rgba(255, 30, 30, 0.2);
         }
 
         .btn-copy {
@@ -120,15 +113,11 @@
 
         .btn-copy:hover {
             background-color: #c4a02e;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.2);
         }
 
         .btn-copy:disabled {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
         }
 
         .divider {
@@ -147,16 +136,13 @@
             border-radius: 30px;
             font-weight: 700;
             font-size: 0.95rem;
-            letter-spacing: 0.5px;
             transition: all 0.2s ease;
             margin-bottom: 25px;
-            cursor: pointer;
         }
 
         .btn-google:hover {
             background-color: #1a73e8;
             color: white;
-            box-shadow: 0 4px 10px rgba(26, 115, 232, 0.2);
         }
 
         .thanks-msg {
@@ -165,7 +151,6 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--primary-red);
-            margin-top: 10px;
         }
 
         .toast {
@@ -182,23 +167,10 @@
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .toast.show {
             visibility: visible;
-            animation: fadein 0.4s, fadeout 0.4s 2.6s;
-        }
-
-        @keyframes fadein {
-            from { bottom: 0; opacity: 0; }
-            to { bottom: 30px; opacity: 1; }
-        }
-
-        @keyframes fadeout {
-            from { bottom: 30px; opacity: 1; }
-            to { bottom: 0; opacity: 0; }
         }
     </style>
 </head>
@@ -216,7 +188,7 @@
         </div>
 
         <div class="action-group">
-            <button class="btn-generate" id="genBtn" onclick="generateReview()">Generate Review</button>
+            <button class="btn-generate" onclick="generateReview()">Generate Review</button>
             <button class="btn-copy" id="copyBtn" onclick="copyReview()" disabled>Copy Text</button>
         </div>
 
@@ -234,44 +206,40 @@
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
-        // Paste all your custom text lines cleanly between the quotes below
-        const reviewBank = [
-            "shoutout to bart and the team at king carts!! picked up a custom lifted cart last week and it runs amazing.",
-            "Honestly the best golf cart spot around town. Bart really knows his stuff.",
-            "brought my cart in to fix a broken brake cable setup and the technicians sorted it out fast.",
-            "Great inventory selection on custom lithium models. Super easy process overall.",
-            "Def recommend checking out King Carts if you need an upgrade. Clean showroom and straightforward service.",
-            "Bart made sure we knew how all the digital screen features and switches worked.",
-            "Top notch service from start to finish. Delivered right to my driveway on time.",
-            "Cannot recommend this business enough! Best experience buying a golf cart hands down.",
-            "Helped us pick the perfect lift kit and matching tire configuration for our neighborhood.",
-            "The premium seating upgrades and matching dashboard look so premium. Thanks crew!",
-            "They handled all the street legal registration paperwork for us quickly. Incredible service."
-        ];
+        // Array uses simple structure to prevent commas from breaking code execution
+        const reviewBank = [];
+        reviewBank.push("shoutout to bart and the team at king carts!! picked up a custom lifted cart last week and it runs amazing.");
+        reviewBank.push("Honestly the best golf cart spot around town. Bart really knows his stuff.");
+        reviewBank.push("brought my cart in to fix a broken brake cable setup and the technicians sorted it out fast.");
+        reviewBank.push("Great inventory selection on custom lithium models. Super easy process overall.");
+        reviewBank.push("Def recommend checking out King Carts if you need an upgrade. Clean showroom and straightforward service.");
+        reviewBank.push("Bart made sure we knew how all the digital screen features and switches worked.");
+        reviewBank.push("Top notch service from start to finish. Delivered right to my driveway on time.");
+        reviewBank.push("Cannot recommend this business enough! Best experience buying a golf cart hands down.");
+        reviewBank.push("Helped us pick the perfect lift kit and matching tire configuration for our neighborhood.");
+        reviewBank.push("The premium seating upgrades and matching dashboard look so premium. Thanks crew!");
 
         let currentReviewText = "";
 
         function generateReview() {
-            if (reviewBank.length === 0) return;
-
             const textDisplay = document.getElementById('reviewDisplay');
             const copyBtn = document.getElementById('copyBtn');
             
             const randomIndex = Math.floor(Math.random() * reviewBank.length);
             currentReviewText = reviewBank[randomIndex];
             
-            textDisplay.innerText = `"${currentReviewText}"`;
+            textDisplay.innerText = '"' + currentReviewText + '"';
             copyBtn.disabled = false;
         }
 
         function copyReview() {
             if (!currentReviewText) return;
             
-            navigator.clipboard.writeText(currentReviewText).then(() => {
+            navigator.clipboard.writeText(currentReviewText).then(function() {
                 const toast = document.getElementById("toast");
                 toast.className = "toast show";
-                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-            }).catch(err => {
+                setTimeout(function() { toast.className = "toast"; }, 3000);
+            }).catch(function(err) {
                 console.error('Failed to copy: ', err);
             });
         }
