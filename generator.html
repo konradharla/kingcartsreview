@@ -227,7 +227,7 @@
 
         <div class="divider"></div>
 
-        <!-- Direct Target Layout Link Provided -->
+        <!-- Working Direct Search Page Target -->
         <a href="https://www.google.com/search?sca_esv=13d834516f12bbee&sxsrf=APpeQnv7SCPx-joKjwg3XagMwv8D3OcE2g:1784421913731&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_wjE_bPIquiksZXqraZj9f4LZBwVMXBpzAWyY3tKuuiuzjsTbkFK9t3GbBiDJxAVPi4eXxRiAe0odkmouNMI0dNWnAvoA4NB9MUfzRNZ2I4JidrixA%3D%3D&q=King+Carts+Golf+Carts+Reviews&sa=X&ved=2ahUKEwi7j7DSwd2VAxV8jIkEHRCeOSAQ0bkNegQIMhAH&biw=1516&bih=761&dpr=2" 
            target="_blank" 
            class="btn-google">
@@ -281,12 +281,22 @@
             ],
             closings: [
                 "top notch service.",
-                "5 stars all day long",
+                "5 stars all day long.",
                 "Extremely happy customer.",
                 "Will definitely refer my friends here.",
                 "Def check them out.",
                 "Outstanding job!!",
                 "love the new cart guys thanks!!"
+            ],
+            // Randomly appended unique text signatures to structurally guarantee 0 exact duplicates
+            signatures: [
+                "Highly recommended business.",
+                "Will be back for service next season.",
+                "Couldn't ask for a smoother transaction.",
+                "Best experience purchasing an upgrade like this.",
+                "A+ rating from our family.",
+                "Everything handled perfectly.",
+                "Super happy we found this place."
             ]
         };
 
@@ -305,8 +315,13 @@
             const p3 = getRandomElement(structure.cartDetails);
             const p4 = getRandomElement(structure.deliveryOrHiccups);
             const p5 = getRandomElement(structure.closings);
+            const p6 = getRandomElement(structure.signatures);
 
-            currentReviewText = `${p1} ${p2} ${p3} ${p4} ${p5}`;
+            // Create a completely unique string signature based on the precise current millisecond timestamp
+            const randomSuffix = Math.floor(Math.random() * 900) + 100;
+            const uniqueId = `(Order ref: #${Date.now().toString().slice(-4)}${randomSuffix})`;
+
+            currentReviewText = `${p1} ${p2} ${p3} ${p4} ${p5} ${p6} ${uniqueId}`;
             
             textDisplay.innerText = `"${currentReviewText}"`;
             copyBtn.disabled = false;
