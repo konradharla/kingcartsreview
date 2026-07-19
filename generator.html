@@ -328,14 +328,14 @@
             // Exact Place ID for King Carts Sarasota
             const placeId = "ChIJNdynIGhcszIRmHszSt0SIhA"; 
             
-            // Native application layout query protocols
-            const iosAppUrl = `comgooglemaps://?q=King+Carts+Sarasota&pid=${placeId}&action=write-review`;
-            const androidAppUrl = `intent://plus.google.com/112675685848227656608/review?pid=${placeId}#Intent;scheme=https;package=com.google.android.apps.maps;end`;
-            const fallbackWebUrl = `https://search.google.com/local/writereview?placeid=${placeId}`;
+            // Deep-link query strings containing explicit instructions to pre-highlight 5 stars
+            const iosAppUrl = `comgooglemaps://?action=write-review&pid=${placeId}&rating=5`;
+            const androidAppUrl = `intent://plus.google.com/112675685848227656608/review?pid=${placeId}&rc=5#Intent;scheme=https;package=com.google.android.apps.maps;end`;
+            const fallbackWebUrl = `https://search.google.com/local/writereview?placeid=${placeId}&rc=5`;
 
             const start = Date.now();
             
-            // Route user directly into native system apps
+            // Force jump directly out into platform map environments
             if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
                 window.location.href = iosAppUrl;
             } else if (/Android/i.test(navigator.userAgent)) {
@@ -345,7 +345,7 @@
                 return;
             }
 
-            // Fallback safety catch
+            // Standard timeout app execution check
             setTimeout(() => {
                 if (Date.now() - start < 2000) {
                     window.location.href = fallbackWebUrl;
