@@ -210,11 +210,11 @@
         <h2 class="section-title">Review Generator</h2>
 
         <div class="review-container">
-            <div class="review-text" id="reviewDisplay">Loading massive review database...</div>
+            <div class="review-text" id="reviewDisplay">Click "Generate Review" to select an organic testimonial...</div>
         </div>
 
         <div class="action-group">
-            <button class="btn-generate" id="genBtn" onclick="generateReview()" disabled>Generate Review</button>
+            <button class="btn-generate" id="genBtn" onclick="generateReview()">Generate Review</button>
             <button class="btn-copy" id="copyBtn" onclick="copyReview()" disabled>Copy Text</button>
         </div>
 
@@ -232,28 +232,117 @@
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
-        let reviewBank = [];
-        let currentReviewText = "";
+        // Drop all your pre-written reviews inside quotes separated by commas right here
+        const reviewBank = [
+            "shoutout to bart and the team at king carts!! picked up a custom lifted cart last week and it runs amazing.",
+            "Honestly the best golf cart spot around town. Bart really knows his stuff.",
+            "brought my cart in to fix a broken brake cable setup and the technicians sorted it out fast.",
+            "Great inventory selection on custom lithium models. Super easy process overall.",
+            "Def recommend checking out King Carts if you need an upgrade. Clean showroom and straightforward service."
+            King Carts in Venice completely transformed our neighborhood transit experience. The custom premium upholstery and matching stitching executed by Bart's team look absolutely impeccable.
+highly recomend king carts!! bart hooked us up with an amazing lifted ride for cruising around Sarasota. the sales team is top tier.
+Our commercial property management team in Miami recently upgraded our facility fleet through Bart. The transaction was highly professional, transparent, and seamlessly coordinated.
+shout out to bart and the whole sales team at the venice showroom! they arent pushy at all and made sure we got exactly what we wanted
+I was thoroughly impressed by the diagnostic accuracy of the Venice service department. They isolated a complex wiring short that another local mechanic failed to identify twice.
+super happy with our new street legal lsv. Bart made the whole dmv paperwork stuff a breeze for us here in fort myers
+We traveled from Naples specifically to work with Bart at the Venice showroom, and the experience exceeded our expectations. The entire sales process was completely pressure-free.
+great selection of custom wheels and lifts. went to the venice location and bart spent an hour answering all my dumb questions lol
+The engineering on their refurbished Club Car models is genuinely exceptional; the steering response and alignment feel absolutely identical to a brand-new factory unit.
+If u live in naples or venice go see Bart at king carts. They have a massive inventory of both gas and electric models.
+We are thoroughly enjoying our custom street-legal LSV. Bart and his sales staff meticulously handled the complex Department of Motor Vehicles compliance paperwork on our behalf.
+the parts wall at the venice store is unreal. had the exact custom led light kit i was looking for when everyone else was backordered.
+The heavy-duty lithium battery conversion Bart recommended has completely eliminated our charging anxiety. The vehicle operates with immense torque and range.
+so glad i chose king carts Venice. bart helped us navigate the local low speed vehicle rules perfectly, highly recommend.
+Bart and his team provided highly detailed, invaluable maintenance guidance that will undoubtedly extend the operational lifespan of our new gas-powered utility cart.
+They completely transformed my old beat up cart into a premium monster with lithium batteries. Bart kept me updated the whole time.
+We visited three separate dealerships across Southwest Florida, but King Carts easily outclassed the competition with their robust inventory and superior custom build configurations.
+unbelievable trade in value for my old yamaha. bart made it so simple to upgrade to a sleek new lifted model.
+The level of professionalism displayed by Bart's technical crew is unmatched. They treated my minor alignment calibration with the exact same prestige as a top-shelf luxury order.
+love the custom carbon fiber dash and steering wheel accents they put in. bart has an eye for design, looks killer.
+Bart and his sales team went well out of their way to source a specific canopy color configuration that perfectly coordinates with our favorite sports team.
+No high pressure tactics here just honest guys who know their stuff. go see bart at the venice location u wont regret it
+I highly recommend King Carts to any Florida resident seeking transparent, upfront pricing, zero dealer preparation fees, and an outstanding customer-centric shopping journey.
+Brought our facilitys utility fleet here for a major overhaul and barts team handled it quickly without any issues.
+The customized brushed-aluminum dashboard layout that Bart designed looks substantially cleaner than the interior of most high-end modern automobiles.
+The extended roof they put on our 4 seater is perfect for weathering those sudden florida downpours.
+From our initial web inquiry to the final white-glove driveway delivery in Clearwater, the entire transaction was absolute perfection. Kudos to Bart and his stellar sales team.
+Our retirement community is packed with king carts builds, everyone talks about how great bart and his sales team are.
+The heavy-duty leaf springs recommended by the Venice staff provide an exceptionally stable, smooth ride quality over challenging, uneven terrains.
+The delivery driver was incredibly polite and took time to show my parents how all the digital display settings work.
+Bart's sales staff possesses an almost encyclopedic knowledge of electric drivetrain efficiency, battery chemistry differences, and motor torque output curves.
+If you want a flawless custom paint job this is the only spot in florida. bart and his crew are master craftsmen.
+The financial department at King Carts made securing competitive financing rates an incredibly straightforward, hassle-free process on Saturday morning.
+Barts technical knowledge of electric drivetrain efficiency is seriously impressive. he knows every single motor detail.
+We are completely obsessed with the weather-proof digital soundbar and custom LED underglow package that Bart's technicians masterfully installed.
+came down from tampa just to buy from bart. the venice showroom has the best selection of street legal options by far.
+Bart stands firmly behind his vehicle warranties with zero bureaucratic runaround or unnecessary administrative delay if an operational issue ever arises.
+A thoroughly pleasant and transparent buying experience. bart and his sales team are setting the bar high for florida dealerships.
+The Venice showroom floor layout is masterfully designed, allowing potential buyers to evaluate varying lift kit heights and tire profiles side by side easily.
+They standardly include premium features that other local shops try to charge you thousands extra for. talk to bart.
+An exemplary local business that consistently demonstrates how to properly balance premium manufacturing with outstanding, long-term consumer loyalty programs.
+straightforward trade in valuation that took less than ten minutes. bart gave us a fair deal right off the bat.
+The high-back premium armrest seating configurations they recommended have provided immense comfort and exceptional lumbar support during our extended evening cruises.
+The braking system upgrade provides immense peace of mind on these steep neighborhood hills. thanks bart and crew.
+Bart accurately forecasted our custom order lead times, ensuring our street-legal vehicle arrived perfectly detailed and ready for immediate use three days ahead of schedule.
+Their online catalog is great but seeing barts massive in store showroom in venice is a total game changer.
+The technical support desk at King Carts was outstanding; they walked me through a simple controller reset procedure over the telephone completely free of charge.
+the steering alignment feels identical to a brand new factory unit. barts refurbished models are top notch quality.
+Bart and his elite sales team turned what we anticipated to be a tedious shopping chore into an incredibly engaging and fun customization project.
+the custom brushed aluminum dash layout looks cleaner than most modern luxury cars. bart did an incredible job.
+Drove down all the way from Daytona Beach because nobody else in the state can compete with Bart's pricing or structural warranties.
+service department kept me updated with clear photo texts throughout the whole engine overhaul. great job venice crew.
+The entire transaction felt like a relaxed, sophisticated consultation with an old friend rather than a stressful dealership negotiation.
+The absolute pinnacle of golf cart retail. unbeatable florida sales staff combined with barts expert tech crew.
+Bart perfectly optimized our vehicle dimensions to guarantee that our customized family cruiser fits completely within our specific toy hauler constraints.
+they turned what i thought would be a boring chore into an incredibly fun custom project. shout out to bart!
+The level of service writer interaction at the Venice location was outstanding; I received regular, transparent updates during my vehicle's mechanical overhaul.
+unmatched level of professionalism at the venice lot. bart is the definitive premier choice in southwest florida.
+They offer highly secure tie-down structures and cargo netting that are absolutely perfect for safely transporting golf clubs and groceries.
+the custom steering wheel adds a stunning level of luxury to our daily drive. barts recommendations were spot on.
+Bart and his technical crew successfully eliminated a stubborn steering column rattle that two alternative repair facilities failed to fix properly.
+provided an incredibly thorough orientation walkaround so we understood every digital reading. thanks bart and team.
+The parts counter in Venice is remarkably well-stocked, minimizing client downtime by keeping an expansive array of OEM components on hand.
+Barts sales crew has an uncanny ability to find the perfect middle ground between your budget and your dream checklist.
+Bart successfully designed a completely custom rear aluminum storage utility box fabricated precisely to our corporate equipment specs.
+They stock a brilliant array of weather proof soundbars that stay crystal clear even at high cruising speeds.
+King Carts remains the absolute benchmark for golf cart dealerships throughout Florida, blending high-end product lines with top-tier personnel.
+A stellar operation run by consummate professionals. bart understands the value of long term customer loyalty.
+The sales manager personally intervened to ensure we captured the absolute best promotion available for our lifestyle needs.
+the sales advisor bart patiently walked us through every single feature variation across three different model years.
+We are thoroughly pleased with the rugged off-road performance capability and quiet neighborhood ride mechanics of our new utility buggy.
+They delivered my new hunting buggy completely immaculate and fully charged for immediate weekend action.
+The Venice showroom is pristine, orderly, and highly welcoming, immediately demonstrating the pride this business takes in its daily operations.
+barts technical support line walked me through a simple controller reset over the phone for free. amazing service.
+Bart's team executed an absolutely beautiful, automotive-grade custom paint finish that has become a true conversation starter in our community.
+An incredibly robust selection of aggressive tread tires and matching custom wheels to give any cart a mean stance.
+The orientation walkthrough provided by the sales staff was exceptionally thorough, leaving our family feeling completely confident in our new vehicle.
+they handle the complex local dmv registration and compliance paperwork seamlessly on your behalf. ask for bart.
+Bart easily found the perfect middle ground between our rigid budget constraints and our extensive custom accessory wishlist.
+The showroom layout in venice makes it remarkably easy to compare different lift heights and tire sizes side by side.
+The team rushed our emergency tire replacement right before closing on Friday afternoon to protect our weekend plans.
+they keep an incredibly vast inventory of oem replacement parts on hand to minimize repair wait times.
+A completely transparent, upfront, and rewarding investment that sets a massive example for how automotive retail should be executed.
+the sales manager bart personally stepped in to ensure we received the absolute best financing rate available.
+Bart's crew treats you with the same high level of prestige whether you are purchasing a simple pre-owned model or a luxury cruiser.
+They installed a heavy duty onboard smart charger that automatically maintains battery health during the winter.
+We received a phenomenally competitive trade-in valuation that transformed upgrading to a modern 4-passenger model into an absolute no-brainer.
+A remarkably smooth ride quality on their lifted setups that completely defies the typical stiff off road stereotype.
+The tinted fold-down windshield assembly suggested by Bart provides phenomenal wind protection without diminishing evening visibility.
+they are exceptionally transparent about lead times on custom orders. bart actually delivered my cart early.
+The custom steering wheel and subtle carbon-fiber interior accents add a brilliant touch of modern luxury to our daily neighborhood route.
+An exemplary team that genuinely listens, accurately advises, and masterfully executes automotive grade finishes.
+The Venice facility offers an incredible diversity of premium all-weather enclosures designed to protect passengers against unpredictable Florida storms.
+they upgraded our property management fleet in miami with heavy duty utility beds that optimized daily operations.
+Bart and team are the definitive gold standard for anybody seeking exceptional golf carts, accessories, and maintenance services in the state.
+The entire transaction felt like a casual conversation with a friend rather than a stressful dealership ordeal.
+We are incredibly appreciative of the professional, direct, and zero-gimmick approach offered by the staff at King Carts.
+Brought my older cart in for a quick tuneup and barts guys treated me like i was buying a top shelf luxury machine.
+The steering alignment calibration feels entirely perfect, making our weekend family outings significantly safer and more enjoyable.
+If u want zero gimmicks and upfront pricing in venice, king carts is the only answer. bart is a true professional.
 
-        // Automatically fetch the external txt sheet from your repository when page loads
-        window.addEventListener('DOMContentLoaded', () => {
-            fetch('reviews.txt')
-                .then(response => {
-                    if (!response.ok) throw new Error('Could not find reviews.txt file');
-                    return response.text();
-                })
-                .then(data => {
-                    // Split file by newlines and filter out empty lines
-                    reviewBank = data.split('\n').map(line => line.trim()).filter(line => line.length > 0);
-                    
-                    document.getElementById('reviewDisplay').innerText = 'Click "Generate Review" to pull from thousands of unique options...';
-                    document.getElementById('genBtn').disabled = false;
-                })
-                .catch(err => {
-                    console.error(err);
-                    document.getElementById('reviewDisplay').innerText = 'Error loading reviews. Make sure reviews.txt exists in your repository.';
-                });
-        });
+        ];
+
+        let currentReviewText = "";
 
         function generateReview() {
             if (reviewBank.length === 0) return;
@@ -261,7 +350,6 @@
             const textDisplay = document.getElementById('reviewDisplay');
             const copyBtn = document.getElementById('copyBtn');
             
-            // Instantly extract a truly random, non-pattern item
             const randomIndex = Math.floor(Math.random() * reviewBank.length);
             currentReviewText = reviewBank[randomIndex];
             
