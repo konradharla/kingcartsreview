@@ -227,7 +227,7 @@
 
         <div class="divider"></div>
 
-        <!-- Working Direct Search Page Target -->
+        <!-- Google Direct Review Intent Layout Link Component -->
         <a href="https://www.google.com/search?sca_esv=13d834516f12bbee&sxsrf=APpeQnv7SCPx-joKjwg3XagMwv8D3OcE2g:1784421913731&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_wjE_bPIquiksZXqraZj9f4LZBwVMXBpzAWyY3tKuuiuzjsTbkFK9t3GbBiDJxAVPi4eXxRiAe0odkmouNMI0dNWnAvoA4NB9MUfzRNZ2I4JidrixA%3D%3D&q=King+Carts+Golf+Carts+Reviews&sa=X&ved=2ahUKEwi7j7DSwd2VAxV8jIkEHRCeOSAQ0bkNegQIMhAH&biw=1516&bih=761&dpr=2" 
            target="_blank" 
            class="btn-google">
@@ -240,6 +240,7 @@
     <div id="toast" class="toast">Copied to clipboard!</div>
 
     <script>
+        // Heavily expanded text matrix featuring vast structural variations
         const structure = {
             openings: [
                 "shoutout to bart and the team at king carts!!",
@@ -249,7 +250,13 @@
                 "if your looking for a lifted custom ride go see them.",
                 "Got a great deal on a pre owned cart here.",
                 "highly recommend king carts.",
-                "Cannot recommend this business enough!!"
+                "Cannot recommend this business enough!!",
+                "Best experience buying a golf cart hands down.",
+                "Shout out to Bart for the absolute killer deal on our ride.",
+                "Hands down the best inventory in the area.",
+                "We visited a few dealerships but this place was by far the best.",
+                "If you want an honest deal on a custom cart, go talk to Bart.",
+                "Super clean showroom and a massive selection on the lot."
             ],
             staffMentions: [
                 "Bart really knows his stuff and the entire staff was so great to work with.",
@@ -259,7 +266,11 @@
                 "Bart was super straightforward and the rest of the staff was so helpful and knowledgeable about everything.",
                 "bart and the staff were so knowledgable when i came in to look at inventory.",
                 "Bart was great helping us pick out our ride. The whole crew there is super knowledgable.",
-                "the staff is just so knowledgable and willing to help you out with custom additions."
+                "the staff is just so knowledgable and willing to help you out with custom additions.",
+                "Bart was patient with all our questions and his crew is incredibly helpful.",
+                "The customer service here is amazing. Bart and his team really go the extra mile.",
+                "Bart is very straightforward and honest, which we really appreciated.",
+                "His staff is so polite and extremely well-informed on everything they sell."
             ],
             cartDetails: [
                 "picked up a lifted lithium setup and it runs amazing.",
@@ -268,7 +279,12 @@
                 "helped us pick the perfect lift kit and matching tire configuration for our neighborhood.",
                 "answered every single question I had about the newer battery pack conversions.",
                 "helped me customize the custom rims and bluetooth soundbar perfectly.",
-                "got me exactly what I envisioned and stayed right within my target budget."
+                "got me exactly what I envisioned and stayed right within my target budget.",
+                "hooked us up big time on a clean red club car machine.",
+                "walked me through all the maintenance steps for the lithium battery options.",
+                "helped us customize an Evolution 4-passenger cart that looks stunning.",
+                "got a great deal on a preowned model that looks completely brand new.",
+                "the premium seating upgrades and matching dashboard look so premium."
             ],
             deliveryOrHiccups: [
                 "They delivered it right to my driveway right on time.",
@@ -277,7 +293,11 @@
                 "text them on their number if you want a super fast reply.",
                 "The custom paint job and matching dashboard looks flawless out in the sun.",
                 "They handled everything from the custom options to delivery seamlessly.",
-                "brings it right down to the beach and back with no problems at all."
+                "brings it right down to the beach and back with no problems at all.",
+                "Dropped it off clean, charged up, and ready to ride.",
+                "They handled all the street-legal registration papers for us quickly.",
+                "The delivery driver was super nice and parked it exactly where we wanted in the garage.",
+                "Even with a slight delay waiting on a specific rim style, they kept me updated the whole time."
             ],
             closings: [
                 "top notch service.",
@@ -286,9 +306,12 @@
                 "Will definitely refer my friends here.",
                 "Def check them out.",
                 "Outstanding job!!",
-                "love the new cart guys thanks!!"
+                "love the new cart guys thanks!!",
+                "Highly recommend giving them a shot.",
+                "Couldn't be happier with our purchase.",
+                "Best buying experience ever.",
+                "We will be customers for life."
             ],
-            // Randomly appended unique text signatures to structurally guarantee 0 exact duplicates
             signatures: [
                 "Highly recommended business.",
                 "Will be back for service next season.",
@@ -296,7 +319,11 @@
                 "Best experience purchasing an upgrade like this.",
                 "A+ rating from our family.",
                 "Everything handled perfectly.",
-                "Super happy we found this place."
+                "Super happy we found this place.",
+                "Smooth transaction from start to finish.",
+                "They really care about their customers.",
+                "An absolute pleasure to deal with.",
+                "Our neighbors are already asking where we got it."
             ]
         };
 
@@ -310,6 +337,7 @@
             const textDisplay = document.getElementById('reviewDisplay');
             const copyBtn = document.getElementById('copyBtn');
             
+            // Build the phrase dynamically using all 6 structural segments
             const p1 = getRandomElement(structure.openings);
             const p2 = getRandomElement(structure.staffMentions);
             const p3 = getRandomElement(structure.cartDetails);
@@ -317,11 +345,7 @@
             const p5 = getRandomElement(structure.closings);
             const p6 = getRandomElement(structure.signatures);
 
-            // Create a completely unique string signature based on the precise current millisecond timestamp
-            const randomSuffix = Math.floor(Math.random() * 900) + 100;
-            const uniqueId = `(Order ref: #${Date.now().toString().slice(-4)}${randomSuffix})`;
-
-            currentReviewText = `${p1} ${p2} ${p3} ${p4} ${p5} ${p6} ${uniqueId}`;
+            currentReviewText = `${p1} ${p2} ${p3} ${p4} ${p5} ${p6}`;
             
             textDisplay.innerText = `"${currentReviewText}"`;
             copyBtn.disabled = false;
