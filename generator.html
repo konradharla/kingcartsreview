@@ -139,7 +139,7 @@
             margin: 30px 0 20px 0;
         }
 
-        /* Google Launch Button */
+        /* Google Browser Link Button */
         .btn-google {
             display: inline-block;
             text-decoration: none;
@@ -227,8 +227,10 @@
 
         <div class="divider"></div>
 
-        <!-- Smartphone Deep Link Action Point -->
-        <a href="#" onclick="openMobileReview(event)" class="btn-google">
+        <!-- Direct Browser Review link using the official Google Place ID shortcut layout -->
+        <a href="https://search.google.com/local/writereview?placeid=ChIJNdynIGhcszIRmHszSt0SIhA" 
+           target="_blank" 
+           class="btn-google">
            Go to Google Review Page
         </a>
 
@@ -320,37 +322,6 @@
             }).catch(err => {
                 console.error('Failed to copy: ', err);
             });
-        }
-
-        function openMobileReview(event) {
-            event.preventDefault();
-            
-            // Exact Place ID for King Carts Sarasota
-            const placeId = "ChIJNdynIGhcszIRmHszSt0SIhA"; 
-            
-            // Deep-link query strings containing explicit instructions to pre-highlight 5 stars
-            const iosAppUrl = `comgooglemaps://?action=write-review&pid=${placeId}&rating=5`;
-            const androidAppUrl = `intent://plus.google.com/112675685848227656608/review?pid=${placeId}&rc=5#Intent;scheme=https;package=com.google.android.apps.maps;end`;
-            const fallbackWebUrl = `https://search.google.com/local/writereview?placeid=${placeId}&rc=5`;
-
-            const start = Date.now();
-            
-            // Force jump directly out into platform map environments
-            if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                window.location.href = iosAppUrl;
-            } else if (/Android/i.test(navigator.userAgent)) {
-                window.location.href = androidAppUrl;
-            } else {
-                window.open(fallbackWebUrl, '_blank');
-                return;
-            }
-
-            // Standard timeout app execution check
-            setTimeout(() => {
-                if (Date.now() - start < 2000) {
-                    window.location.href = fallbackWebUrl;
-                }
-            }, 1500);
         }
     </script>
 </body>
