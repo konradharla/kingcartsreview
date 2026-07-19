@@ -67,7 +67,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 30px 25px;
-            min-height: 100px;
+            min-height: 120px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -210,7 +210,6 @@
 
     <div class="container">
         <div class="brand-header">
-            <!-- Updated URL Image Source -->
             <img src="https://growthzonesitesprod.azureedge.net/wp-content/uploads/sites/3048/2023/09/KingCartsLogo_BrightSpot-300x220.png" alt="King Carts Logo" class="logo-img">
         </div>
 
@@ -233,7 +232,6 @@
            Go to Google Review Page
         </a>
 
-        <!-- Bottom Page Polish Greeting -->
         <div class="thanks-msg">dzienkujemy!!</div>
     </div>
 
@@ -247,21 +245,52 @@
             "Good prices and nice inventory. Bart runs a great shop and the staff is super friendly and knowledgable. They delivered it right to my driveway right on time. text them if you want a fast reply.",
             "if your looking for a lifted custom ride go see them. bart and his crew are awesome. the staff was extremely knowledgeable and spent a lot of time helping us pick out options. love my new ride thanks king carts team.",
             "Got a great deal on a pre owned club car. Bart was super straightforward and the rest of the staff was so helpful and knowledgeable about the maintenance stuff. Only thing was they forgot the extra key but they mailed it out next day.",
-            "highly recommend king carts. service department is top notch. bart and the staff were so knowledgable when i came in to get my lifted cart fixed up after a minor accident. 5 stars all day long"
+            "highly recommend king carts. service department is top notch. bart and the staff were so knowledgable when i came in to get my lifted cart fixed up after a minor accident. 5 stars all day long",
+            "Bart was great helping us pick out our new Evolution cart last Friday. The whole crew there is super knowledgable and helped me get the right insurance papers sorted out quickly. Great place.",
+            "If u need a golf cart customized go see Bart at king carts. His staff is so nice and extremely knowledgable about the newer lithium battery packs. Extremely happy with my street legal cart.",
+            "Cannot recommend this place enough!! Bart hooked us up with an awesome deal on an Icon 40. The staff was super knowledgable and friendly throughout the entire trade in process.",
+            "awesome service from start to finish. bart answered my web inquiry fast and when i walked into the showroom the staff was so helpful and knowledgable about local street legal laws here.",
+            "Me and my husband just bought our second cart here. Bart is always straightforward and honest with us. The staff is extremely knowledgable and took their time showing us how to maintain the tires properly.",
+            "shoutout to bart and the service guys. had a small issue with the LED underglow light kit i bought but they got me in next day and fixed it up. highly knowledgable staff and super polite.",
+            "Great inventory on custom carts. Bart spent almost an hour with us explaining the difference in speed controllers. Very knowledgable staff and great customer service overall.",
+            "highly recommend going to see bart if your looking for a cart. his staff is very knowledgable and friendly. delivered it right to my beach house same day. 5 stars!",
+            "Best prices in town hands down. Bart gave me a great trade-in value for my old ezgo. The staff is very knowledgable and helped me customize the rims and soundbar. Love it.",
+            "bart and his crew are the best in the business. super knowledgable staff that actually cares about what you need instead of just trying to upsell you. very happy customer.",
+            "Bought a preowned cart from Bart and it looks brand new. The staff was so great and knowledgable during our walkthrough. They made sure we knew how all the switches worked before we left.",
+            "Amazing experience at king carts today. Bart was awesome and the rest of the staff was so welcoming and knowledgable about the street legal registration process. Def check them out.",
+            "Shout out to Bart for the killer deal on our new 6 seater! The staff was incredibly knowledgable and helped us pick the perfect lift kit configuration for the neighborhood.",
+            "Best cart buying experience ever. Bart is super chill to deal with and the staff is so knowledgable and friendly. They handled everything from the custom paint to delivery seamlessly.",
+            "Bart runs a tight ship here. Inventory is beautiful and the staff is super knowledgable about all the custom modifications. Will definitely refer my friends here.",
+            "great experience buying our first custom golf cart. bart was very helpful and the staff was super knowledgable about the local laws for driving them on public roads around here.",
+            "If your looking for great service and a knowledgable staff go talk to Bart. They answered every question I had about the lithium battery conversions and got my cart back to me early.",
+            "Thanks Bart and the king carts team! The staff was so helpful and knowledgable when we were picking out our custom seats and matching dashboard. Looks incredible.",
+            "Bart is the man! Got a super sweet lifted bintelli cart from them. The staff was very knowledgable and walked me through all the digital screen features before delivery.",
+            "super happy with my purchase from king carts. bart was awesome to work with and the staff is highly knowledgable about all the mechanical and electrical upgrades. highly recommend.",
+            "Top tier customer service from Bart and his crew. The staff was incredibly knowledgable and helped us track down a specific custom rim style we wanted. Outstanding job!!",
+            "Bart made the whole custom process super easy. His staff is very polite, professional, and knowledgable about the different motor options. The cart runs like a dream.",
+            "Awesome shop. Bart helped me pick out a great preowned model and the staff was super knowledgable when installing the new flip-down back seat kit for me. Excellent service.",
+            "five stars all the way for bart and his team. the staff is super knowledgable and helped me pick the right charger setup for my garage. love the new cart guys thanks!!",
+            "Bart was extremely nice and fair on pricing. The staff is super knowledgable about the custom audio setups and got my new Bluetooth soundbar sounding crisp. Thanks again!",
+            "Best golf cart dealership around. Bart was awesome to work with and the staff is just so knowledgable and willing to help you out with custom parts. Will absolutely be back.",
+            "Huge thank you to Bart and the service crew. The staff is incredibly knowledgable and fixed up my brakes in no time at all. Fair pricing and honest people.",
+            "Can't say enough good things about Bart and his business. The staff is so friendly and knowledgable about custom builds. They built exactly what I envisioned perfectly.",
+            "Bart and his team are top notch! Super knowledgable staff that knows everything there is to know about custom carts. Delivered it directly to my driveway clean and ready to ride."
         ];
 
+        let availableReviews = [...reviews];
         let currentReviewText = "";
 
         function generateReview() {
             const textDisplay = document.getElementById('reviewDisplay');
             const copyBtn = document.getElementById('copyBtn');
             
-            let randomIndex;
-            do {
-                randomIndex = Math.floor(Math.random() * reviews.length);
-            } while (reviews[randomIndex] === currentReviewText && reviews.length > 1);
+            if (availableReviews.length === 0) {
+                availableReviews = [...reviews];
+                availableReviews = availableReviews.filter(r => r !== currentReviewText);
+            }
 
-            currentReviewText = reviews[randomIndex];
+            const randomIndex = Math.floor(Math.random() * availableReviews.length);
+            currentReviewText = availableReviews.splice(randomIndex, 1)[0];
             
             textDisplay.innerText = `"${currentReviewText}"`;
             copyBtn.disabled = false;
